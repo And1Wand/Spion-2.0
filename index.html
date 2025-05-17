@@ -1,3 +1,56 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Spion Spiel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: sans-serif; margin: 0; padding: 0; background: #f0f0f0; }
+    .hidden { display: none; }
+    .screen { padding: 20px; text-align: center; }
+    .card { display: inline-block; margin: 10px; padding: 30px; background: #3498db; color: white; border-radius: 10px; cursor: pointer; font-size: 1.2rem; width: 150px; height: 100px; }
+    .card.revealed { background: #2ecc71; color: black; }
+    button { margin: 10px; padding: 10px 20px; font-size: 1rem; }
+    select, input[type="number"] { padding: 5px; font-size: 1rem; margin: 5px; }
+  </style>
+</head>
+<body>
+  <div id="menu" class="screen">
+    <h1>Spion Spiel</h1>
+    <label>Spieleranzahl: <input type="number" id="spieleranzahl" value="4" min="3" max="20"></label><br>
+    <label>Impostoranzahl: <input type="number" id="impostoranzahl" value="1" min="1"></label><br>
+    <label>Kategorie:
+      <select id="kategorie">
+        <option value="Rund um die Welt">Rund um die Welt</option>
+        <option value="Unterhaltung">Unterhaltung</option>
+        <option value="Alltag">Alltag</option>
+        <option value="Tiere & Natur">Tiere & Natur</option>
+        <option value="Sport & Freizeit">Sport & Freizeit</option>
+        <option value="Wissen & Schule">Wissen & Schule</option>
+        <option value="Feste & Feiern">Feste & Feiern</option>
+        <option value="Deutsche Begriffe">Deutsche Begriffe</option>
+        <option value="Stars & Promis">Stars & Promis</option>
+      </select>
+    </label><br>
+    <div id="spielernamen"></div>
+    <button onclick="spielerNamenErstellen()">Spielernamen generieren</button><br>
+    <button onclick="spielStarten()">Spielen</button>
+  </div>
+
+  <div id="spiel" class="screen hidden">
+    <h2>Wort anzeigen</h2>
+    <div id="karten"></div><br>
+    <button onclick="aufloesen()">Auflösen</button>
+  </div>
+
+  <div id="ergebnis" class="screen hidden">
+    <h2>Impostor war(en):</h2>
+    <p id="impostor-namen"></p>
+    <button onclick="spielStarten()">Erneut spielen</button>
+    <button onclick="zurueckZumMenue()">Menü</button>
+  </div>
+
+  <script>
 const kategorien = {
   "Rund um die Welt": [
     "Weltkarte", "Kontinent", "Regenwald", "Wüste", "Meer", "Berg", "Insel", "Fluss", "Hauptstadt", "Nationalpark",
@@ -43,15 +96,15 @@ const kategorien = {
   ],
   "Feste & Feiern": [
     "Weihnachten", "Geburtstag", "Ostern", "Halloween", "Silvester", "Karneval", "Hochzeit", "Party", "Geschenk", "Kerze",
-    "Feuerwerk", "Torte", "Ball", "Musik", "Tanz", "Sekt", "Kuchen", "Einladung", "Bräutigam", "Braut",
+    "Feuerwerk", "Torte", "Ball", "Musik", "Tanz", "Sekt", "Einladung", "Bräutigam", "Braut",
     "Festzelt", "Laterne", "Kostüm", "Glückwunsch", "Dekoration", "Familie", "Freunde", "Straßenfest", "Jubiläum", "Maskerade",
     "Umzug", "Feier", "Konfetti", "Bühne", "Gäste", "Gesang", "Kerzenlicht", "Zuckerwatte", "Gulaschkanone", "Anstoßen",
     "Böller", "Feierlichkeit", "Festtag", "Fahne", "Lichterkette", "Fotobox", "Sektglas", "Saison", "Show", "Fest"
   ],
   "Deutsche Begriffe": [
     "Gemütlichkeit", "Schadenfreude", "Zeitgeist", "Fernweh", "Wanderlust", "Heimat", "Drachenfels", "Autobahn", "Bratwurst", "Biergarten",
-    "Schloss", "Wurst", "Sauerkraut", "Kuckucksuhr", "Brezel", "Mauer", "Fußball", "Fest", "Bahnsteig", "Marktplatz",
-    "Berg", "Dorf", "Kaiser", "Wald", "Sehnsucht", "Rucksack", "Zug", "Blumenstrauß", "Kirche", "Sommer",
+    "Schloss", "Wurst", "Sauerkraut", "Kuckucksuhr", "Brezel", "Mauer", "Fußball", "Fest", "Bahnsteig", "Marktplatz,
+    "Dorf", "Kaiser", "Wald", "Sehnsucht", "Rucksack", "Zug", "Blumenstrauß", "Kirche", "Sommer",
     "Winter", "Frühling", "Herbst", "Schnee", "Straße", "Haus", "Garten", "Bäckerei", "Tasche", "Glocke",
     "Bier", "Schrift", "Wolke", "Lied", "Vogel", "Brücke", "Schuh", "Mantel", "Himmel", "Buch"
   ],
@@ -90,11 +143,92 @@ const kategorien = {
     "Takt", "Refrain", "Strophe", "Komponist", "Tonleiter", "Akkord", "Tonaufnahme", "Playback", "Sound", "Mix",
     "Cover", "Platte", "Festival", "Probe", "Studio", "Aufnahme", "Plattenvertrag", "Chart", "Bühne", "Publikum"
   ],
-  "Sonstiges": [
-    "Lampe", "Tasse", "Schlüssel", "Koffer", "Wolke", "Feder", "Mütze", "Brille", "Ziegel", "Schraube",
-    "Maus", "Seil", "Uhr", "Kerze", "Besen", "Flasche", "Brief", "Kette", "Berg", "Rad",
-    "Sofa", "Karte", "Blatt", "Schnecke", "Radio", "Ball", "Fahrrad", "Pinsel", "Tisch", "Hand",
-    "Zug", "Boot", "Feder", "Brunnen", "Gabel", "Tür", "Hammer", "Stock", "Kamm", "Korb",
-    "Nagel", "Schere", "Buch", "Pfanne", "Lampe", "Stein", "Löffel", "Telefon", "Fenster", "Sessel"
-  ]
+  const sonstiges = [
+  "Pollen", "Milchstraße", "Vulkan", "Regenbogen", "Sternbild", "Quanten", "Wind", "Komet", "Polarlicht", "Nebel",
+  "Dunst", "Molekül", "Planet", "Atom", "Magnet", "Zeit", "Energie", "Welle", "Echo", "Laser",
+  "Sand", "Wüste", "Ozean", "Gezeiten", "Insel", "Krater", "Fossil", "Schall", "Dunkelheit", "Licht",
+  "Schatten", "Temperatur", "Bewegung", "Spannung", "Farbe", "Gefühl", "Traum", "Geschichte", "Sprache", "Erinnerung",
+  "Wunsch", "Idee", "Mythos", "Legende", "Kultur", "Tradition", "Chaos", "Ordnung", "Puzzle", "Geist"
+]
 };
+
+
+let spieler = [];
+let impostors = [];
+let geheimwort = "";
+
+function spielerNamenErstellen() {
+  const anzahl = parseInt(document.getElementById("spieleranzahl").value);
+  const container = document.getElementById("spielernamen");
+  container.innerHTML = "";
+  for (let i = 0; i < anzahl; i++) {
+    const input = document.createElement("input");
+    input.type = "text";
+    input.placeholder = `Spieler ${i + 1}`;
+    input.value = `Spieler ${i + 1}`;
+    container.appendChild(input);
+    container.appendChild(document.createElement("br"));
+  }
+}
+
+function spielStarten() {
+  const inputs = document.querySelectorAll("#spielernamen input");
+  spieler = Array.from(inputs).map(input => input.value.trim() || "Spieler");
+
+  const kategorie = document.getElementById("kategorie").value;
+  const woerter = kategorien[kategorie];
+  geheimwort = woerter[Math.floor(Math.random() * woerter.length)];
+
+  // Sonderfall-Logik
+  const zufall = Math.random();
+  impostors = [];
+
+  if (zufall < 0.05) {
+    // Kein Impostor
+  } else if (zufall < 0.10 && spieler.length >= 4) {
+    while (impostors.length < 2) {
+      const kandidat = Math.floor(Math.random() * spieler.length);
+      if (!impostors.includes(kandidat)) impostors.push(kandidat);
+    }
+  } else {
+    // Standardfall: 1 Impostor
+    impostors.push(Math.floor(Math.random() * spieler.length));
+  }
+
+  document.getElementById("menu").classList.add("hidden");
+  document.getElementById("spiel").classList.remove("hidden");
+  kartenAnzeigen();
+}
+
+function kartenAnzeigen() {
+  const kartenContainer = document.getElementById("karten");
+  kartenContainer.innerHTML = "";
+
+  spieler.forEach((name, index) => {
+    const karte = document.createElement("div");
+    karte.className = "card";
+    karte.innerText = name;
+    karte.onclick = () => {
+      karte.classList.add("revealed");
+      karte.innerText = impostors.includes(index) ? "Impostor" : geheimwort;
+    };
+    kartenContainer.appendChild(karte);
+  });
+}
+
+function aufloesen() {
+  document.getElementById("spiel").classList.add("hidden");
+  document.getElementById("ergebnis").classList.remove("hidden");
+
+  const namen = impostors.map(i => spieler[i]).join(", ") || "Niemand war der Impostor!";
+  document.getElementById("impostor-namen").innerText = namen;
+}
+
+function zurueckZumMenue() {
+  document.getElementById("ergebnis").classList.add("hidden");
+  document.getElementById("menu").classList.remove("hidden");
+}
+</script>
+
+</body>
+</html>
