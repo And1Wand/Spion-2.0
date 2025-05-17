@@ -1,0 +1,100 @@
+const kategorien = {
+  "Rund um die Welt": [
+    "Weltkarte", "Kontinent", "Regenwald", "Wüste", "Meer", "Berg", "Insel", "Fluss", "Hauptstadt", "Nationalpark",
+    "Eiffelturm", "Pyramide", "Safari", "Tundra", "Vulkan", "Hurrikan", "Globus", "Grenze", "Klima", "Zeitzone",
+    "Safari", "Archipel", "Küste", "Dschungel", "Gletscher", "Metropole", "Währung", "Tourist", "Kultur", "Sprachen",
+    "Meeresspiegel", "Polarlicht", "Safari", "Biodiversität", "Naturkatastrophe", "Wanderlust", "Fjord", "Savanne", "Nomade", "Großstadt",
+    "Markt", "Tempel", "Wasserfall", "Sehenswürdigkeit", "Nationalflagge", "Höhle", "Plattform", "Expedition", "Monument", "Reiseziel"
+  ],
+  "Unterhaltung": [
+    "Kino", "Theater", "Musik", "Bühne", "Künstler", "Film", "Konzert", "Comedy", "Buch", "Game",
+    "Festival", "Podcast", "Tanz", "Oper", "Zauberer", "Magier", "Karussell", "Clown", "Zirkus", "Fernsehen",
+    "Streaming", "Quiz", "Karaoke", "Band", "Schauspieler", "Moderator", "Show", "Trailer", "Premiere", "Musical",
+    "Bühnenbild", "Tonstudio", "Publikum", "Aufführung", "Lichtshow", "Orchester", "Kabarett", "Improvisation", "Story", "Drama",
+    "Comedy", "Sitcom", "Drehbuch", "Regisseur", "Choreografie", "Serien", "Doku", "Videospiel", "Kunst", "Schauspiel"
+  ],
+  "Alltag": [
+    "Zahnbürste", "Schlüssel", "Kaffee", "Bus", "Handy", "Arbeit", "Schule", "Haus", "Freund", "Auto",
+    "Supermarkt", "Büro", "Fernseher", "Müll", "Brot", "Dusche", "Rechnung", "Wecker", "Tasche", "Laptop",
+    "Telefon", "Brief", "Uhr", "Wäsche", "Einkauf", "Apotheke", "Bank", "Computer", "Küche", "Schlafzimmer",
+    "Stuhl", "Tisch", "Lampe", "Heizung", "Heim", "Nachbar", "Park", "Straße", "Ampel", "Fahrrad",
+    "Schuhe", "Jacke", "Schrank", "Buch", "Zeitung", "Internet", "Post", "Briefkasten", "Kalender", "Fenster"
+  ],
+  "Tiere & Natur": [
+    "Baum", "Wiese", "Wind", "Fuchs", "Eule", "Blume", "Regen", "See", "Biene", "Wolf",
+    "Fisch", "Vogel", "Käfer", "Igel", "Hase", "Löwe", "Tiger", "Elefant", "Farn", "Schmetterling",
+    "Käfer", "Frosch", "Schaf", "Bär", "Adler", "Krokodil", "Giraffe", "Berg", "Tanne", "Moos",
+    "Wald", "Wolke", "Schnecke", "Ameise", "Farn", "Mammutbaum", "Mücke", "Eichhörnchen", "Schneeflocke", "Sonne",
+    "Pflanze", "Blatt", "Kiefer", "Meise", "Feld", "Krokus", "Schaf", "Alge", "Libelle", "See"
+  ],
+  "Sport & Freizeit": [
+    "Fußball", "Basketball", "Schwimmen", "Tennis", "Radfahren", "Joggen", "Skifahren", "Golf", "Boxen", "Segeln",
+    "Turnen", "Volleyball", "Badminton", "Klettern", "Yoga", "Reiten", "Surfen", "Tauchen", "Laufen", "Skateboard",
+    "Handball", "Eishockey", "Rugby", "Angeln", "Schach", "Bowling", "Tanzen", "Golfplatz", "Marathon", "Gymnastik",
+    "Pferdesport", "Bergsteigen", "Kampfsport", "Triathlon", "Schießen", "Fischen", "Parkour", "Fitness", "Kanu", "Korbball",
+    "Schlitten", "Segelsport", "Ski", "Sportplatz", "Sportler", "Basket", "Schwimmer", "Wettkampf", "Ball", "Trainer"
+  ],
+  "Wissen & Schule": [
+    "Mathematik", "Biologie", "Physik", "Geschichte", "Geographie", "Chemie", "Literatur", "Philosophie", "Deutsch", "Englisch",
+    "Bibliothek", "Lehrer", "Hausaufgaben", "Prüfung", "Schulhof", "Tafel", "Lineal", "Pinsel", "Experiment", "Formel",
+    "Schreibmaschine", "Atlas", "Schulbank", "Notizbuch", "Klassenarbeit", "Referat", "Pause", "Stundenplan", "Lesen", "Schule",
+    "Universität", "Diplom", "Stipendium", "Lehrbuch", "Forschung", "Projekt", "Labor", "Professor", "Vortrag", "Praktikum",
+    "Test", "Zeugnis", "Aufsatz", "Mathe", "Geschichtsunterricht", "Buch", "Fach", "Schüler", "Lehrplan"
+  ],
+  "Feste & Feiern": [
+    "Weihnachten", "Geburtstag", "Ostern", "Halloween", "Silvester", "Karneval", "Hochzeit", "Party", "Geschenk", "Kerze",
+    "Feuerwerk", "Torte", "Ball", "Musik", "Tanz", "Sekt", "Kuchen", "Einladung", "Bräutigam", "Braut",
+    "Festzelt", "Laterne", "Kostüm", "Glückwunsch", "Dekoration", "Familie", "Freunde", "Straßenfest", "Jubiläum", "Maskerade",
+    "Umzug", "Feier", "Konfetti", "Bühne", "Gäste", "Gesang", "Kerzenlicht", "Zuckerwatte", "Gulaschkanone", "Anstoßen",
+    "Böller", "Feierlichkeit", "Festtag", "Fahne", "Lichterkette", "Fotobox", "Sektglas", "Saison", "Show", "Fest"
+  ],
+  "Deutsche Begriffe": [
+    "Gemütlichkeit", "Schadenfreude", "Zeitgeist", "Fernweh", "Wanderlust", "Heimat", "Drachenfels", "Autobahn", "Bratwurst", "Biergarten",
+    "Schloss", "Wurst", "Sauerkraut", "Kuckucksuhr", "Brezel", "Mauer", "Fußball", "Fest", "Bahnsteig", "Marktplatz",
+    "Berg", "Dorf", "Kaiser", "Wald", "Sehnsucht", "Rucksack", "Zug", "Blumenstrauß", "Kirche", "Sommer",
+    "Winter", "Frühling", "Herbst", "Schnee", "Straße", "Haus", "Garten", "Bäckerei", "Tasche", "Glocke",
+    "Bier", "Schrift", "Wolke", "Lied", "Vogel", "Brücke", "Schuh", "Mantel", "Himmel", "Buch"
+  ],
+  "Stars & Promis": [
+    "Schauspieler", "Musiker", "Politiker", "Sportler", "Moderator", "Regisseur", "Sänger", "Influencer", "Model", "Autor",
+    "Oscar", "Album", "Film", "Show", "Preis", "Roter Teppich", "Interview", "Fan", "Autogramm", "Festival",
+    "Band", "Konzert", "Leben", "Karriere", "Charity", "Fotoshooting", "Promo", "Drehbuch", "Crew", "Hit",
+    "Vertrag", "Platin", "Platzierung", "Bühne", "Kritik", "Auftritt", "Biografie", "Casting", "Kamera", "Trailer",
+    "Podcast", "Event", "Presse", "Agentur", "Produzent", "Interview", "Talkshow", "Premiere", "Single", "Video"
+  ],
+  "Technologie": [
+    "Computer", "Internet", "Smartphone", "Software", "Hardware", "Robotik", "Künstliche Intelligenz", "Programmierer", "Algorithmus", "Daten",
+    "Cloud", "Server", "Drohne", "App", "Gadget", "Datenbank", "Netzwerk", "Bildschirm", "Sensor", "USB",
+    "Bluetooth", "WiFi", "KI", "Chip", "Virtual Reality", "Datenanalyse", "Cybersecurity", "Code", "Browser", "Download",
+    "Firmware", "QR-Code", "Robot", "Smartwatch", "3D-Druck", "Pixel", "E-Mail", "Softwareupdate", "Algorithmus", "Internetseite",
+    "Cloudspeicher", "Digitalkamera", "Elektronik", "Modem", "Prozessor", "USB-Stick", "Scanner", "Tablet", "Touchscreen", "Webseite"
+  ],
+  "Film & Fernsehen": [
+    "Kamera", "Drehbuch", "Schnitt", "Regisseur", "Kamera", "Licht", "Ton", "Schauspieler", "Kostüm", "Kulisse",
+    "Premiere", "Casting", "Produzent", "Episode", "Staffel", "Serie", "Dokumentation", "Trailer", "Blockbuster", "Oscar",
+    "Drehort", "Spezialeffekte", "Animation", "Storyboard", "Synchronisation", "Dialog", "Kamerateam", "Filmset", "Storyboard", "Action",
+    "Drama", "Komödie", "Horror", "Thriller", "Fantasy", "Science-Fiction", "Romantik", "Musical", "Biografie", "Kurzfilm",
+    "Spielfilm", "TV-Show", "Talkshow", "Reality-TV", "Nachrichten", "Moderator", "Fernsehsender", "Streamingdienst", "Netflix", "YouTube"
+  ],
+  "Essen & Trinken": [
+    "Brot", "Käse", "Apfel", "Salat", "Pizza", "Pasta", "Kaffee", "Tee", "Saft", "Wasser",
+    "Fleisch", "Fisch", "Gemüse", "Obst", "Suppe", "Dessert", "Kuchen", "Butter", "Ei", "Reis",
+    "Nudeln", "Gewürz", "Öl", "Zucker", "Salz", "Pfeffer", "Milch", "Joghurt", "Honig", "Schokolade",
+    "Eis", "Snack", "Fast Food", "Restaurant", "Bar", "Cocktail", "Wein", "Bier", "Sekt", "Smoothie",
+    "Nuss", "Salami", "Keks", "Braten", "Toast", "Marmelade", "Kuchen", "Müsli", "Chips", "Kartoffel"
+  ],
+  "Musik": [
+    "Gitarre", "Klavier", "Schlagzeug", "Bass", "Sänger", "Band", "Konzert", "Album", "Melodie", "Rhythmus",
+    "Noten", "Chor", "Orchester", "Jazz", "Pop", "Rock", "Hip-Hop", "Klassik", "Blues", "Country",
+    "Song", "Hit", "Ton", "Instrument", "Text", "Produzent", "DJ", "Synthesizer", "Solo", "Klang",
+    "Takt", "Refrain", "Strophe", "Komponist", "Tonleiter", "Akkord", "Tonaufnahme", "Playback", "Sound", "Mix",
+    "Cover", "Platte", "Festival", "Probe", "Studio", "Aufnahme", "Plattenvertrag", "Chart", "Bühne", "Publikum"
+  ],
+  "Sonstiges": [
+    "Lampe", "Tasse", "Schlüssel", "Koffer", "Wolke", "Feder", "Mütze", "Brille", "Ziegel", "Schraube",
+    "Maus", "Seil", "Uhr", "Kerze", "Besen", "Flasche", "Brief", "Kette", "Berg", "Rad",
+    "Sofa", "Karte", "Blatt", "Schnecke", "Radio", "Ball", "Fahrrad", "Pinsel", "Tisch", "Hand",
+    "Zug", "Boot", "Feder", "Brunnen", "Gabel", "Tür", "Hammer", "Stock", "Kamm", "Korb",
+    "Nagel", "Schere", "Buch", "Pfanne", "Lampe", "Stein", "Löffel", "Telefon", "Fenster", "Sessel"
+  ]
+};
