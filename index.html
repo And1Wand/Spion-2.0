@@ -1,37 +1,114 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Spion Spiel</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    body { font-family: sans-serif; margin: 0; padding: 0; background: #f0f0f0; }
+    body {
+      font-family: sans-serif;
+      margin: 0; padding: 0;
+      /* Dunkler Grauton mit leichtem Verlauf von oben links (heller) nach unten rechts (dunkler) */
+      background: linear-gradient(135deg, #444444 0%, #222222 100%);
+      color: #eee;
+    }
     .hidden { display: none; }
-    .screen { padding: 20px; text-align: center; }
-    .card { display: inline-block; margin: 10px; padding: 30px; background: #3498db; color: white; border-radius: 10px; cursor: pointer; font-size: 1.2rem; width: 150px; height: 100px; }
-    .card.revealed { background: #2ecc71; color: black; }
-    button { margin: 10px; padding: 10px 20px; font-size: 1rem; }
-    select, input[type="number"] { padding: 5px; font-size: 1rem; margin: 5px; }
+    .screen {
+      padding: 20px;
+      text-align: center;
+    }
+    .card {
+      display: inline-block;
+      margin: 10px;
+      padding: 30px;
+      background: #3498db;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      width: 150px;
+      height: 100px;
+      user-select: none;
+    }
+    .card.revealed {
+      background: #2ecc71;
+      color: black;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    input[type="number"] {
+      padding: 5px;
+      font-size: 1rem;
+      margin: 5px;
+      width: 60px;
+      text-align: center;
+      border-radius: 5px;
+      border: none;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin: 8px 0 4px;
+      user-select: none;
+    }
+    #kategorienAuswahl {
+      max-height: 220px;
+      overflow-y: auto;
+      border: 1px solid #555;
+      border-radius: 8px;
+      padding: 10px;
+      margin: 10px auto;
+      width: 250px;
+      background: #333;
+      text-align: left;
+      color: #eee;
+    }
+    #kategorienAuswahl label {
+      font-weight: normal;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    #kategorienAuswahl input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
   <div id="menu" class="screen">
     <h1>Spion Spiel</h1>
-    <label>Spieleranzahl: <input type="number" id="spieleranzahl" value="4" min="3" max="20"></label><br>
-    <label>Impostoranzahl: <input type="number" id="impostoranzahl" value="1" min="1"></label><br>
-    <label>Kategorie:
-      <select id="kategorie">
-        <option value="Rund um die Welt">Rund um die Welt</option>
-        <option value="Unterhaltung">Unterhaltung</option>
-        <option value="Alltag">Alltag</option>
-        <option value="Tiere & Natur">Tiere & Natur</option>
-        <option value="Sport & Freizeit">Sport & Freizeit</option>
-        <option value="Wissen & Schule">Wissen & Schule</option>
-        <option value="Feste & Feiern">Feste & Feiern</option>
-        <option value="Deutsche Begriffe">Deutsche Begriffe</option>
-        <option value="Stars & Promis">Stars & Promis</option>
-      </select>
-    </label><br>
+    <label>Spieleranzahl:
+      <input type="number" id="spieleranzahl" value="4" min="3" max="20" />
+    </label>
+    <label>Impostoranzahl:
+      <input type="number" id="impostoranzahl" value="1" min="1" />
+    </label>
+    <label>Kategorien auswählen:</label>
+    <div id="kategorienAuswahl">
+      <label><input type="checkbox" class="kategorieCheckbox" value="Rund um die Welt" checked> Rund um die Welt</label>
+      <label><input type="checkbox" class="kategorieCheckbox" value="Unterhaltung" checked> Unterhaltung</label>
+      <label><input type="checkbox" class="kategorieCheckbox" value="Alltag" checked> Alltag</label>
+      <label><input type="checkbox" class="kategorieCheckbox" value="Tiere & Natur" checked> Tiere & Natur</label>
+      <label><input type="checkbox" class="kategorieCheckbox" value="Sport & Freizeit" checked> Sport & Freizeit</label>
+      <label><input type="checkbox" class="kategorieCheckbox" value="Wissen & Schule" checked> Wissen & Schule</label>
+      <label><input type="checkbox" class="kategorieCheckbox" value="Feste & Feiern" checked> Feste & Feiern</label>
+      <label><input type="checkbox" class="kategorieCheckbox" value="Deutsche Begriffe" checked> Deutsche Begriffe</label>
+      <label><input type="checkbox" class="kategorieCheckbox" value="Stars & Promis" checked> Stars & Promis</label>
+      <label><input type="checkbox" class="kategorieCheckbox" value="Technologie & Wissenschaft" checked> Technologie & Wissenschaft</label>
+      <label><input type="checkbox" class="kategorieCheckbox" value="Geographie & Geschichte" checked> Geographie & Geschichte</label>
+      <label><input type="checkbox" class="kategorieCheckbox" value="Filme & Serien" checked> Filme & Serien</label>
+      <label><input type="checkbox" class="kategorieCheckbox" value="Essen & Trinken" checked> Essen & Trinken</label>
+      <label><input type="checkbox" class="kategorieCheckbox" value="Musik & Kunst" checked> Musik & Kunst</label>
+      <label><input type="checkbox" class="kategorieCheckbox" value="Sonstiges" checked> Sonstiges</label>
+    </div>
     <div id="spielernamen"></div>
     <button onclick="spielerNamenErstellen()">Spielernamen generieren</button><br>
     <button onclick="spielStarten()">Spielen</button>
@@ -51,184 +128,103 @@
   </div>
 
   <script>
-const kategorien = {
-  "Rund um die Welt": [
-    "Weltkarte", "Kontinent", "Regenwald", "Wüste", "Meer", "Berg", "Insel", "Fluss", "Hauptstadt", "Nationalpark",
-    "Eiffelturm", "Pyramide", "Safari", "Tundra", "Vulkan", "Hurrikan", "Globus", "Grenze", "Klima", "Zeitzone",
-    "Safari", "Archipel", "Küste", "Dschungel", "Gletscher", "Metropole", "Währung", "Tourist", "Kultur", "Sprachen",
-    "Meeresspiegel", "Polarlicht", "Safari", "Biodiversität", "Naturkatastrophe", "Wanderlust", "Fjord", "Savanne", "Nomade", "Großstadt",
-    "Markt", "Tempel", "Wasserfall", "Sehenswürdigkeit", "Nationalflagge", "Höhle", "Plattform", "Expedition", "Monument", "Reiseziel"
-  ],
-  "Unterhaltung": [
-    "Kino", "Theater", "Musik", "Bühne", "Künstler", "Film", "Konzert", "Comedy", "Buch", "Game",
-    "Festival", "Podcast", "Tanz", "Oper", "Zauberer", "Magier", "Karussell", "Clown", "Zirkus", "Fernsehen",
-    "Streaming", "Quiz", "Karaoke", "Band", "Schauspieler", "Moderator", "Show", "Trailer", "Premiere", "Musical",
-    "Bühnenbild", "Tonstudio", "Publikum", "Aufführung", "Lichtshow", "Orchester", "Kabarett", "Improvisation", "Story", "Drama",
-    "Comedy", "Sitcom", "Drehbuch", "Regisseur", "Choreografie", "Serien", "Doku", "Videospiel", "Kunst", "Schauspiel"
-  ],
-  "Alltag": [
-    "Zahnbürste", "Schlüssel", "Kaffee", "Bus", "Handy", "Arbeit", "Schule", "Haus", "Freund", "Auto",
-    "Supermarkt", "Büro", "Fernseher", "Müll", "Brot", "Dusche", "Rechnung", "Wecker", "Tasche", "Laptop",
-    "Telefon", "Brief", "Uhr", "Wäsche", "Einkauf", "Apotheke", "Bank", "Computer", "Küche", "Schlafzimmer",
-    "Stuhl", "Tisch", "Lampe", "Heizung", "Heim", "Nachbar", "Park", "Straße", "Ampel", "Fahrrad",
-    "Schuhe", "Jacke", "Schrank", "Buch", "Zeitung", "Internet", "Post", "Briefkasten", "Kalender", "Fenster"
-  ],
-  "Tiere & Natur": [
-    "Baum", "Wiese", "Wind", "Fuchs", "Eule", "Blume", "Regen", "See", "Biene", "Wolf",
-    "Fisch", "Vogel", "Käfer", "Igel", "Hase", "Löwe", "Tiger", "Elefant", "Farn", "Schmetterling",
-    "Käfer", "Frosch", "Schaf", "Bär", "Adler", "Krokodil", "Giraffe", "Berg", "Tanne", "Moos",
-    "Wald", "Wolke", "Schnecke", "Ameise", "Farn", "Mammutbaum", "Mücke", "Eichhörnchen", "Schneeflocke", "Sonne",
-    "Pflanze", "Blatt", "Kiefer", "Meise", "Feld", "Krokus", "Schaf", "Alge", "Libelle", "See"
-  ],
-  "Sport & Freizeit": [
-    "Fußball", "Basketball", "Schwimmen", "Tennis", "Radfahren", "Joggen", "Skifahren", "Golf", "Boxen", "Segeln",
-    "Turnen", "Volleyball", "Badminton", "Klettern", "Yoga", "Reiten", "Surfen", "Tauchen", "Laufen", "Skateboard",
-    "Handball", "Eishockey", "Rugby", "Angeln", "Schach", "Bowling", "Tanzen", "Golfplatz", "Marathon", "Gymnastik",
-    "Pferdesport", "Bergsteigen", "Kampfsport", "Triathlon", "Schießen", "Fischen", "Parkour", "Fitness", "Kanu", "Korbball",
-    "Schlitten", "Segelsport", "Ski", "Sportplatz", "Sportler", "Basket", "Schwimmer", "Wettkampf", "Ball", "Trainer"
-  ],
-  "Wissen & Schule": [
-    "Mathematik", "Biologie", "Physik", "Geschichte", "Geographie", "Chemie", "Literatur", "Philosophie", "Deutsch", "Englisch",
-    "Bibliothek", "Lehrer", "Hausaufgaben", "Prüfung", "Schulhof", "Tafel", "Lineal", "Pinsel", "Experiment", "Formel",
-    "Schreibmaschine", "Atlas", "Schulbank", "Notizbuch", "Klassenarbeit", "Referat", "Pause", "Stundenplan", "Lesen", "Schule",
-    "Universität", "Diplom", "Stipendium", "Lehrbuch", "Forschung", "Projekt", "Labor", "Professor", "Vortrag", "Praktikum",
-    "Test", "Zeugnis", "Aufsatz", "Mathe", "Geschichtsunterricht", "Buch", "Fach", "Schüler", "Lehrplan"
-  ],
-  "Feste & Feiern": [
-    "Weihnachten", "Geburtstag", "Ostern", "Halloween", "Silvester", "Karneval", "Hochzeit", "Party", "Geschenk", "Kerze",
-    "Feuerwerk", "Torte", "Ball", "Musik", "Tanz", "Sekt", "Einladung", "Bräutigam", "Braut",
-    "Festzelt", "Laterne", "Kostüm", "Glückwunsch", "Dekoration", "Familie", "Freunde", "Straßenfest", "Jubiläum", "Maskerade",
-    "Umzug", "Feier", "Konfetti", "Bühne", "Gäste", "Gesang", "Kerzenlicht", "Zuckerwatte", "Gulaschkanone", "Anstoßen",
-    "Böller", "Feierlichkeit", "Festtag", "Fahne", "Lichterkette", "Fotobox", "Sektglas", "Saison", "Show", "Fest"
-  ],
-  "Deutsche Begriffe": [
-    "Gemütlichkeit", "Schadenfreude", "Zeitgeist", "Fernweh", "Wanderlust", "Heimat", "Drachenfels", "Autobahn", "Bratwurst", "Biergarten",
-    "Schloss", "Wurst", "Sauerkraut", "Kuckucksuhr", "Brezel", "Mauer", "Fußball", "Fest", "Bahnsteig", "Marktplatz,
-    "Dorf", "Kaiser", "Wald", "Sehnsucht", "Rucksack", "Zug", "Blumenstrauß", "Kirche", "Sommer",
-    "Winter", "Frühling", "Herbst", "Schnee", "Straße", "Haus", "Garten", "Bäckerei", "Tasche", "Glocke",
-    "Bier", "Schrift", "Wolke", "Lied", "Vogel", "Brücke", "Schuh", "Mantel", "Himmel", "Buch"
-  ],
-  "Stars & Promis": [
-    "Schauspieler", "Musiker", "Politiker", "Sportler", "Moderator", "Regisseur", "Sänger", "Influencer", "Model", "Autor",
-    "Oscar", "Album", "Film", "Show", "Preis", "Roter Teppich", "Interview", "Fan", "Autogramm", "Festival",
-    "Band", "Konzert", "Leben", "Karriere", "Charity", "Fotoshooting", "Promo", "Drehbuch", "Crew", "Hit",
-    "Vertrag", "Platin", "Platzierung", "Bühne", "Kritik", "Auftritt", "Biografie", "Casting", "Kamera", "Trailer",
-    "Podcast", "Event", "Presse", "Agentur", "Produzent", "Interview", "Talkshow", "Premiere", "Single", "Video"
-  ],
-  "Technologie": [
-    "Computer", "Internet", "Smartphone", "Software", "Hardware", "Robotik", "Künstliche Intelligenz", "Programmierer", "Algorithmus", "Daten",
-    "Cloud", "Server", "Drohne", "App", "Gadget", "Datenbank", "Netzwerk", "Bildschirm", "Sensor", "USB",
-    "Bluetooth", "WiFi", "KI", "Chip", "Virtual Reality", "Datenanalyse", "Cybersecurity", "Code", "Browser", "Download",
-    "Firmware", "QR-Code", "Robot", "Smartwatch", "3D-Druck", "Pixel", "E-Mail", "Softwareupdate", "Algorithmus", "Internetseite",
-    "Cloudspeicher", "Digitalkamera", "Elektronik", "Modem", "Prozessor", "USB-Stick", "Scanner", "Tablet", "Touchscreen", "Webseite"
-  ],
-  "Film & Fernsehen": [
-    "Kamera", "Drehbuch", "Schnitt", "Regisseur", "Kamera", "Licht", "Ton", "Schauspieler", "Kostüm", "Kulisse",
-    "Premiere", "Casting", "Produzent", "Episode", "Staffel", "Serie", "Dokumentation", "Trailer", "Blockbuster", "Oscar",
-    "Drehort", "Spezialeffekte", "Animation", "Storyboard", "Synchronisation", "Dialog", "Kamerateam", "Filmset", "Storyboard", "Action",
-    "Drama", "Komödie", "Horror", "Thriller", "Fantasy", "Science-Fiction", "Romantik", "Musical", "Biografie", "Kurzfilm",
-    "Spielfilm", "TV-Show", "Talkshow", "Reality-TV", "Nachrichten", "Moderator", "Fernsehsender", "Streamingdienst", "Netflix", "YouTube"
-  ],
-  "Essen & Trinken": [
-    "Brot", "Käse", "Apfel", "Salat", "Pizza", "Pasta", "Kaffee", "Tee", "Saft", "Wasser",
-    "Fleisch", "Fisch", "Gemüse", "Obst", "Suppe", "Dessert", "Kuchen", "Butter", "Ei", "Reis",
-    "Nudeln", "Gewürz", "Öl", "Zucker", "Salz", "Pfeffer", "Milch", "Joghurt", "Honig", "Schokolade",
-    "Eis", "Snack", "Fast Food", "Restaurant", "Bar", "Cocktail", "Wein", "Bier", "Sekt", "Smoothie",
-    "Nuss", "Salami", "Keks", "Braten", "Toast", "Marmelade", "Kuchen", "Müsli", "Chips", "Kartoffel"
-  ],
-  "Musik": [
-    "Gitarre", "Klavier", "Schlagzeug", "Bass", "Sänger", "Band", "Konzert", "Album", "Melodie", "Rhythmus",
-    "Noten", "Chor", "Orchester", "Jazz", "Pop", "Rock", "Hip-Hop", "Klassik", "Blues", "Country",
-    "Song", "Hit", "Ton", "Instrument", "Text", "Produzent", "DJ", "Synthesizer", "Solo", "Klang",
-    "Takt", "Refrain", "Strophe", "Komponist", "Tonleiter", "Akkord", "Tonaufnahme", "Playback", "Sound", "Mix",
-    "Cover", "Platte", "Festival", "Probe", "Studio", "Aufnahme", "Plattenvertrag", "Chart", "Bühne", "Publikum"
-  ],
-  "Sonstiges" = [
-  "Pollen", "Milchstraße", "Vulkan", "Regenbogen", "Sternbild", "Quanten", "Wind", "Komet", "Polarlicht", "Nebel",
-  "Dunst", "Molekül", "Planet", "Atom", "Magnet", "Zeit", "Energie", "Welle", "Echo", "Laser",
-  "Sand", "Wüste", "Ozean", "Gezeiten", "Insel", "Krater", "Fossil", "Schall", "Dunkelheit", "Licht",
-  "Schatten", "Temperatur", "Bewegung", "Spannung", "Farbe", "Gefühl", "Traum", "Geschichte", "Sprache", "Erinnerung",
-  "Wunsch", "Idee", "Mythos", "Legende", "Kultur", "Tradition", "Chaos", "Ordnung", "Puzzle", "Geist"
-]
-};
+    // Beispielhafte Kategorien-Wortlisten (bitte mit deinen kompletten Listen ersetzen)
+    const rundUmDieWelt = ["Europa", "Afrika", "Asien", "Amerika", "Australien"];
+    const unterhaltung = ["Kino", "Theater", "Konzert", "Spiel", "Fernsehen"];
+    const alltag = ["Arbeit", "Haus", "Auto", "Einkauf", "Schule"];
+    const tiereUndNatur = ["Hund", "Katze", "Baum", "Blume", "Vogel"];
+    const sportUndFreizeit = ["Fußball", "Tennis", "Schwimmen", "Radfahren", "Wandern"];
+    const wissenUndSchule = ["Mathematik", "Geschichte", "Physik", "Biologie", "Chemie"];
+    const festeUndFeiern = ["Weihnachten", "Geburtstag", "Karneval", "Ostern", "Hochzeit"];
+    const deutscheBegriffe = ["Haus", "Auto", "Straße", "Baum", "Fenster"];
+    const starsUndPromis = ["Brad Pitt", "Angela Merkel", "Beyoncé", "Elon Musk", "Messi"];
+    const technologieUndWissenschaft = ["Computer", "Roboter", "Atom", "Quanten", "Internet"];
+    const geographieUndGeschichte = ["Deutschland", "Berlin", "Mittelalter", "Renaissance", "Revolution"];
+    const filmeUndSerien = ["Matrix", "Game of Thrones", "Star Wars", "Friends", "Breaking Bad"];
+    const essenUndTrinken = ["Pizza", "Bier", "Wasser", "Salat", "Kaffee"];
+    const musikUndKunst = ["Klavier", "Gitarre", "Malerei", "Skulptur", "Tanz"];
+    const sonstiges = [
+      "Pollen", "Milchstraße", "Vulkan", "Regenbogen", "Sternbild", "Quanten", "Wind", "Komet", "Polarlicht", "Nebel",
+      "Dunst", "Molekül", "Planet", "Atom", "Magnet", "Zeit", "Energie", "Welle", "Echo", "Laser",
+      "Sand", "Wüste", "Ozean", "Gezeiten", "Insel", "Krater", "Fossil", "Schall", "Dunkelheit", "Licht",
+      "Schatten", "Temperatur", "Bewegung", "Spannung", "Farbe", "Gefühl", "Traum", "Geschichte", "Sprache", "Erinnerung",
+      "Wunsch", "Idee", "Mythos", "Legende", "Kultur", "Tradition", "Chaos", "Ordnung", "Puzzle", "Geist"
+    ];
 
+    // Beispielhafte Funktion zum Starten des Spiels (ausgewählte Kategorien kombinieren)
+    function spielStarten() {
+      const checkedCategories = [...document.querySelectorAll('.kategorieCheckbox:checked')].map(cb => cb.value);
+      let wortPool = [];
 
-let spieler = [];
-let impostors = [];
-let geheimwort = "";
+      checkedCategories.forEach(kat => {
+        switch (kat) {
+          case "Rund um die Welt": wortPool = wortPool.concat(rundUmDieWelt); break;
+          case "Unterhaltung": wortPool = wortPool.concat(unterhaltung); break;
+          case "Alltag": wortPool = wortPool.concat(alltag); break;
+          case "Tiere & Natur": wortPool = wortPool.concat(tiereUndNatur); break;
+          case "Sport & Freizeit": wortPool = wortPool.concat(sportUndFreizeit); break;
+          case "Wissen & Schule": wortPool = wortPool.concat(wissenUndSchule); break;
+          case "Feste & Feiern": wortPool = wortPool.concat(festeUndFeiern); break;
+          case "Deutsche Begriffe": wortPool = wortPool.concat(deutscheBegriffe); break;
+          case "Stars & Promis": wortPool = wortPool.concat(starsUndPromis); break;
+          case "Technologie & Wissenschaft": wortPool = wortPool.concat(technologieUndWissenschaft); break;
+          case "Geographie & Geschichte": wortPool = wortPool.concat(geographieUndGeschichte); break;
+          case "Filme & Serien": wortPool = wortPool.concat(filmeUndSerien); break;
+          case "Essen & Trinken": wortPool = wortPool.concat(essenUndTrinken); break;
+          case "Musik & Kunst": wortPool = wortPool.concat(musikUndKunst); break;
+          case "Sonstiges": wortPool = wortPool.concat(sonstiges); break;
+        }
+      });
 
-function spielerNamenErstellen() {
-  const anzahl = parseInt(document.getElementById("spieleranzahl").value);
-  const container = document.getElementById("spielernamen");
-  container.innerHTML = "";
-  for (let i = 0; i < anzahl; i++) {
-    const input = document.createElement("input");
-    input.type = "text";
-    input.placeholder = `Spieler ${i + 1}`;
-    input.value = `Spieler ${i + 1}`;
-    container.appendChild(input);
-    container.appendChild(document.createElement("br"));
-  }
-}
+      if (wortPool.length === 0) {
+        alert("Bitte wähle mindestens eine Kategorie aus.");
+        return;
+      }
 
-function spielStarten() {
-  const inputs = document.querySelectorAll("#spielernamen input");
-  spieler = Array.from(inputs).map(input => input.value.trim() || "Spieler");
+      // Restliche Logik zum Spielstart hier ...
+      // Beispiel: Spieleranzahl und Impostoranzahl auslesen
+      const spieleranzahl = parseInt(document.getElementById('spieleranzahl').value, 10);
+      const impostoranzahl = parseInt(document.getElementById('impostoranzahl').value, 10);
 
-  const kategorie = document.getElementById("kategorie").value;
-  const woerter = kategorien[kategorie];
-  geheimwort = woerter[Math.floor(Math.random() * woerter.length)];
+      if (impostoranzahl >= spieleranzahl) {
+        alert("Die Anzahl der Impostors muss kleiner als die Spieleranzahl sein.");
+        return;
+      }
 
-  // Sonderfall-Logik
-  const zufall = Math.random();
-  impostors = [];
-
-  if (zufall < 0.05) {
-    // Kein Impostor
-  } else if (zufall < 0.10 && spieler.length >= 4) {
-    while (impostors.length < 2) {
-      const kandidat = Math.floor(Math.random() * spieler.length);
-      if (!impostors.includes(kandidat)) impostors.push(kandidat);
+      // TODO: Spieler erstellen, Wörter verteilen, Karte anzeigen
+      alert(`Spiel startet mit ${spieleranzahl} Spielern, ${impostoranzahl} Impostor(s), und ${wortPool.length} Wörtern aus ${checkedCategories.join(", ")}`);
+      // Für Demo: einfach zurück zum Menü
+      // Hier kannst du deinen bisherigen Spielcode anpassen und integrieren
     }
-  } else {
-    // Standardfall: 1 Impostor
-    impostors.push(Math.floor(Math.random() * spieler.length));
-  }
 
-  document.getElementById("menu").classList.add("hidden");
-  document.getElementById("spiel").classList.remove("hidden");
-  kartenAnzeigen();
-}
+    // Beispielhafte Funktion zum Generieren von Spielernamen (vereinfacht)
+    function spielerNamenErstellen() {
+      const spieleranzahl = parseInt(document.getElementById('spieleranzahl').value, 10);
+      const container = document.getElementById('spielernamen');
+      container.innerHTML = '';
+      for (let i = 1; i <= spieleranzahl; i++) {
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.placeholder = 'Name Spieler ' + i;
+        input.id = 'spieler' + i;
+        input.style.margin = '5px';
+        container.appendChild(input);
+        container.appendChild(document.createElement('br'));
+      }
+    }
 
-function kartenAnzeigen() {
-  const kartenContainer = document.getElementById("karten");
-  kartenContainer.innerHTML = "";
+    function aufloesen() {
+      alert("Auflösung wird hier noch implementiert.");
+    }
 
-  spieler.forEach((name, index) => {
-    const karte = document.createElement("div");
-    karte.className = "card";
-    karte.innerText = name;
-    karte.onclick = () => {
-      karte.classList.add("revealed");
-      karte.innerText = impostors.includes(index) ? "Impostor" : geheimwort;
-    };
-    kartenContainer.appendChild(karte);
-  });
-}
+    function zurueckZumMenue() {
+      document.getElementById('ergebnis').classList.add('hidden');
+      document.getElementById('menu').classList.remove('hidden');
+    }
 
-function aufloesen() {
-  document.getElementById("spiel").classList.add("hidden");
-  document.getElementById("ergebnis").classList.remove("hidden");
+    // Automatisch Spielernamen erstellen beim Laden (optional)
+    spielerNamenErstellen();
 
-  const namen = impostors.map(i => spieler[i]).join(", ") || "Niemand war der Impostor!";
-  document.getElementById("impostor-namen").innerText = namen;
-}
-
-function zurueckZumMenue() {
-  document.getElementById("ergebnis").classList.add("hidden");
-  document.getElementById("menu").classList.remove("hidden");
-}
-</script>
-
+  </script>
 </body>
 </html>
